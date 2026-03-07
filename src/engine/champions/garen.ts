@@ -52,7 +52,6 @@ registerChampion('Garen', {
     spellSlots: [
         { key: 'q', label: 'Q — Decisive Strike', maxRank: 5 },
         { key: 'e', label: 'E — Judgment', maxRank: 5 },
-        { key: 'e_extra', label: 'E — Rotations', maxRank: 1, extraParam: { label: 'Rotations', min: 1, max: 16, default: 9 } },
         { key: 'r', label: 'R — Demacian Justice', maxRank: 3 },
     ],
 });

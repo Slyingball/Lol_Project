@@ -10,6 +10,10 @@ import './lux';
 import './zed';
 import './leesin';
 import './yasuo';
+import './galio';
+import './irelia';
+import './yone';
+import './aatrox';
 
 // Re-export registry utilities
 export { getChampionConfig, hasChampionConfig, getRegisteredChampionIds } from './registry';

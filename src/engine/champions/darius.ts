@@ -18,14 +18,22 @@ const Q_BASE = [50, 80, 110, 140, 170];
 // W — Crippling Strike: 100% total AD + 40/45/50/55/60% total AD
 const W_RATIO = [0.40, 0.45, 0.50, 0.55, 0.60];
 
+// E — Apprehend: passive 10/15/20/25/30% armor pen · active pull (no base damage, utility)
+const E_ARMOR_PEN = [0.10, 0.15, 0.20, 0.25, 0.30];
+
 // R — Noxian Guillotine: 100/200/300 + 75% bonus AD (true damage)
 const R_BASE = [100, 200, 300];
 
 function calculate(p: AbilityCalcParams): AbilityDamageResult[] {
     const qR = Math.max(1, Math.min(5, p.ranks.q ?? 1));
     const wR = Math.max(1, Math.min(5, p.ranks.w ?? 1));
+    const eR = Math.max(1, Math.min(5, p.ranks.e ?? 1));
     const rR = Math.max(1, Math.min(3, p.ranks.r ?? 1));
     const stacks = p.extras.passiveStacks ?? 5;
+
+    // E passive armor pen applied to all physical calcs
+    const eArmorPen = E_ARMOR_PEN[eR - 1];
+    const totalArmorPenPercent = 1 - (1 - p.armorPenPercent) * (1 - eArmorPen);
 
     // Passive
     const pPerStack = passivePerStack(p.level, p.bonusAD);
@@ -33,20 +41,21 @@ function calculate(p: AbilityCalcParams): AbilityDamageResult[] {
 
     // Q blade hit
     const qRaw = Q_BASE[qR - 1] + p.totalAD;
-    const q = calculatePhysicalDamage(qRaw, p.target, p.armorPenPercent, p.armorPenFlat);
+    const q = calculatePhysicalDamage(qRaw, p.target, totalArmorPenPercent, p.armorPenFlat);
 
     // W
     const wRaw = p.totalAD + W_RATIO[wR - 1] * p.totalAD;
-    const w = calculatePhysicalDamage(wRaw, p.target, p.armorPenPercent, p.armorPenFlat);
+    const w = calculatePhysicalDamage(wRaw, p.target, totalArmorPenPercent, p.armorPenFlat);
 
     // R (true damage, +20% per stack)
     const rRaw = (R_BASE[rR - 1] + 0.75 * p.bonusAD) * (1 + 0.20 * stacks);
     const r = calculateTrueDamage(rRaw);
 
     return [
-        { abilityId: 'passive', abilityName: `Hemorrhage (Passif) — ×${stacks} stacks`, rank: 0, damageType: 'physical', rawDamage: pTotal, finalDamage: calculatePhysicalDamage(pTotal, p.target, p.armorPenPercent, p.armorPenFlat).finalDamage },
+        { abilityId: 'passive', abilityName: `Hemorrhage (Passif) — ×${stacks} stacks`, rank: 0, damageType: 'physical', rawDamage: pTotal, finalDamage: calculatePhysicalDamage(pTotal, p.target, totalArmorPenPercent, p.armorPenFlat).finalDamage },
         { abilityId: 'Q', abilityName: 'Decimate (Q) — lame', rank: qR, damageType: 'physical', rawDamage: q.rawDamage, finalDamage: q.finalDamage },
         { abilityId: 'W', abilityName: 'Crippling Strike (W)', rank: wR, damageType: 'physical', rawDamage: w.rawDamage, finalDamage: w.finalDamage },
+        { abilityId: 'E', abilityName: `Apprehend (E) — ${Math.round(eArmorPen * 100)}% pén. armure`, rank: eR, damageType: 'physical', rawDamage: 0, finalDamage: 0 },
         { abilityId: 'R', abilityName: `Noxian Guillotine (R) — ${stacks} stacks`, rank: rR, damageType: 'true', rawDamage: r.rawDamage, finalDamage: r.finalDamage },
     ];
 }
@@ -57,6 +66,7 @@ registerChampion('Darius', {
     spellSlots: [
         { key: 'q', label: 'Q — Decimate', maxRank: 5 },
         { key: 'w', label: 'W — Crippling Strike', maxRank: 5 },
+        { key: 'e', label: 'E — Apprehend', maxRank: 5 },
         { key: 'r', label: 'R — Noxian Guillotine', maxRank: 3 },
         { key: 'passive_extra', label: 'Stacks passif', maxRank: 1, extraParam: { label: 'Stacks', min: 0, max: 5, default: 5 } },
     ],

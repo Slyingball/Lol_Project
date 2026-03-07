@@ -14,7 +14,7 @@ export function calculateStatAtLevel(
     level: number
 ): number {
     if (growth === 0) return base;
-    const n = Math.max(1, Math.min(18, level));
+    const n = Math.max(1, Math.min(20, level));
     return base + growth * (n - 1) * (0.7025 + 0.0175 * (n - 1));
 }
 
@@ -23,7 +23,7 @@ export function calculateStatAtLevel(
  * attackspeed(N) = baseAS × (1 + (AS_ratio × level) / 100)
  */
 function calculateAttackSpeed(baseAS: number, asPerLevel: number, level: number): number {
-    const n = Math.max(1, Math.min(18, level));
+    const n = Math.max(1, Math.min(20, level));
     return baseAS * (1 + (asPerLevel * n) / 100);
 }
 

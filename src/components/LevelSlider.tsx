@@ -16,7 +16,7 @@ export function LevelSlider() {
                 <input
                     type="range"
                     min={1}
-                    max={18}
+                    max={20}
                     value={level}
                     onChange={(e) => setLevel(Number(e.target.value))}
                 />
