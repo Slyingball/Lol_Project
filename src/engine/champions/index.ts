@@ -34,6 +34,16 @@ import './caitlyn';
 import './camille';
 import './cassiopeia';
 import './chogath';
+import './corki';
+import './diana';
+import './drmundo';
+import './draven';
+import './ekko';
+import './elise';
+import './evelynn';
+import './ezreal';
+import './fiddlesticks';
+import './fiora';
 
 // Re-export registry utilities
 export { getChampionConfig, hasChampionConfig, getRegisteredChampionIds } from './registry';
