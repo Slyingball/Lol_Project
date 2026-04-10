@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import type { Champion } from '../types/champion';
-import type { Item, AggregatedItemStats } from '../types/item';
+import type { Item, AggregatedItemStats, ItemInstance } from '../types/item';
 import type { TargetStats } from '../types/target';
 import type { CalculationResult } from '../types/damage';
 import { DEFAULT_TARGET } from '../types/target';
@@ -17,7 +17,7 @@ interface CalculatorState {
     extras: Record<string, number>;
     // Items
     availableItems: Item[];
-    selectedItems: Item[];
+    selectedItems: ItemInstance[];
     // Target
     target: TargetStats;
     // API
@@ -34,7 +34,8 @@ interface CalculatorState {
     setLevel: (level: number) => void;
     setRank: (key: string, value: number) => void;
     setExtra: (key: string, value: number) => void;
-    toggleItem: (item: Item) => void;
+    addItem: (item: Item) => void;
+    removeItem: (uid: string) => void;
     setTarget: (target: Partial<TargetStats>) => void;
     setAvailableItems: (items: Item[]) => void;
     setVersion: (version: string) => void;
@@ -92,13 +93,13 @@ export const useCalculatorStore = create<CalculatorState>((set, get) => ({
         set((s) => ({ extras: { ...s.extras, [key]: value } }));
         get().computeDamage();
     },
-    toggleItem: (item) => {
-        const { selectedItems } = get();
-        const exists = selectedItems.find((i) => i.id === item.id);
-        const next = exists
-            ? selectedItems.filter((i) => i.id !== item.id)
-            : [...selectedItems, item];
-        set({ selectedItems: next });
+    addItem: (item) => {
+        const uid = Math.random().toString(36).substr(2, 9);
+        set((s) => ({ selectedItems: [...s.selectedItems, { uid, item }] }));
+        get().computeDamage();
+    },
+    removeItem: (uid) => {
+        set((s) => ({ selectedItems: s.selectedItems.filter((i) => i.uid !== uid) }));
         get().computeDamage();
     },
     setTarget: (partial) => {
@@ -115,7 +116,7 @@ export const useCalculatorStore = create<CalculatorState>((set, get) => ({
         if (!champion) return;
 
         const stats = computeChampionStatsAtLevel(champion, level);
-        const itemStats: AggregatedItemStats = aggregateItemStats(selectedItems);
+        const itemStats: AggregatedItemStats = aggregateItemStats(selectedItems.map((i) => i.item));
 
         const baseAD = stats.attackDamage;
         const bonusAD = itemStats.bonusAD;

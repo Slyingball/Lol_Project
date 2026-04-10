@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useCalculatorStore } from '../store/useCalculatorStore';
 
 export function TargetInput() {

@@ -43,6 +43,12 @@ export interface Item {
     isSummonersRift: boolean;
     /** Special flag for Infinity Edge passive. */
     isInfinityEdge?: boolean;
+    depth?: number;
+}
+
+export interface ItemInstance {
+    uid: string;
+    item: Item;
 }
 
 /** Aggregated stats from a set of items. */

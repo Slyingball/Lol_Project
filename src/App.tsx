@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { ChampionSelector } from './components/ChampionSelector';
 import { LevelSlider } from './components/LevelSlider';
 import { ItemSelector } from './components/ItemSelector';

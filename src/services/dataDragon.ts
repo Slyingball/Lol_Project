@@ -103,6 +103,7 @@ export async function fetchItemData(
             stats: item.stats,
             isSummonersRift: true,
             isInfinityEdge: IE_IDS.has(id),
+            depth: item.depth,
         }));
 }
 

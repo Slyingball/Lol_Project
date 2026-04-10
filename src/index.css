@@ -666,3 +666,25 @@ body {
     order: -1;
   }
 }
+
+/* ─── Item Tiers ────────────────────────────────────────────────────────── */
+.item-tier-section {
+  margin-bottom: 1.25rem;
+}
+
+.item-tier-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-left: 2px solid var(--accent);
+  padding-left: 0.5rem;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.05em;
+}
+
+.item-tier-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
