@@ -6,6 +6,7 @@ type ItemCategory = 'Tous' | 'Tireur' | 'Mage' | 'Tank' | 'Combattant' | 'Assass
 
 function matchCategory(tags: string[], cat: ItemCategory) {
     if (cat === 'Tous') return true;
+    if (tags.includes('Boots') || tags.includes('Consumable')) return true;
     if (cat === 'Tireur') return tags.includes('Damage') && (tags.includes('CriticalStrike') || tags.includes('AttackSpeed') || tags.includes('LifeSteal'));
     if (cat === 'Mage') return tags.includes('SpellDamage');
     if (cat === 'Tank') return tags.includes('Health') && (tags.includes('Armor') || tags.includes('SpellBlock'));
@@ -45,7 +46,7 @@ export function ItemSelector() {
 
     return (
         <div className="card">
-            <h2 className="section-title">🛡️ Objets</h2>
+            <h2 className="section-title">Objets</h2>
 
             {/* Selected items */}
             {selectedItems.length > 0 && (

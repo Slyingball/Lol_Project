@@ -8,7 +8,7 @@ export function TargetInput() {
 
     return (
         <div className="card compact">
-            <h2 className="section-title">🎯 Cible</h2>
+            <h2 className="section-title">Cible</h2>
 
             <div className="input-grid">
                 <StatInput

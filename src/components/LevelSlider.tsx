@@ -8,7 +8,7 @@ export function LevelSlider() {
 
     return (
         <div className="card compact">
-            <h2 className="section-title">⚡ Niveau &amp; Rangs</h2>
+            <h2 className="section-title">Niveau & Rangs</h2>
 
             {/* Champion level */}
             <div className="slider-row">

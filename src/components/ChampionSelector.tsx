@@ -9,16 +9,18 @@ import {
     type ChampionSummary,
 } from '../services/dataDragon';
 
+import { LayoutGrid, Axe, TreePine, Flame, Target, Heart } from 'lucide-react';
+
 // ─── Role filter mapping ────────────────────────────────────────────────────
 type Role = 'All' | 'Top' | 'Mid' | 'Jungle' | 'ADC' | 'Support';
 
-const ROLE_LABELS: { role: Role; icon: string }[] = [
-    { role: 'All', icon: '🔄' },
-    { role: 'Top', icon: '🛡️' },
-    { role: 'Jungle', icon: '🌿' },
-    { role: 'Mid', icon: '🔮' },
-    { role: 'ADC', icon: '🏹' },
-    { role: 'Support', icon: '💛' },
+const ROLE_LABELS: { role: Role; icon: React.ReactNode }[] = [
+    { role: 'All', icon: <LayoutGrid size={14} /> },
+    { role: 'Top', icon: <Axe size={14} /> },
+    { role: 'Jungle', icon: <TreePine size={14} /> },
+    { role: 'Mid', icon: <Flame size={14} /> },
+    { role: 'ADC', icon: <Target size={14} /> },
+    { role: 'Support', icon: <Heart size={14} /> },
 ];
 
 /** Maps DDragon tags to approximate roles. */
@@ -109,7 +111,7 @@ export function ChampionSelector() {
 
     return (
         <div className="card">
-            <h2 className="section-title">🗡️ Champion</h2>
+            <h2 className="section-title">Champion</h2>
             {champion && (
                 <div className="selected-champion">
                     <img

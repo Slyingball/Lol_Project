@@ -1,16 +1,17 @@
 import { useCalculatorStore } from '../store/useCalculatorStore';
 import type { AbilityDamageResult } from '../types/damage';
+import { Sword, Wand2, Sparkles } from 'lucide-react';
 
 const DAMAGE_COLOR: Record<string, string> = {
-    physical: '#e8734a',
-    magic: '#5b9bd5',
+    physical: '#e08050',
+    magic: '#6b9ef5',
     true: '#c9b97a',
 };
 
-const DAMAGE_ICON: Record<string, string> = {
-    physical: '⚔️',
-    magic: '✨',
-    true: '🔱',
+const DAMAGE_ICON: Record<string, React.ReactNode> = {
+    physical: <Sword size={14} />,
+    magic: <Wand2 size={14} />,
+    true: <Sparkles size={14} />,
 };
 
 export function DamageDisplay() {
@@ -19,7 +20,7 @@ export function DamageDisplay() {
     if (error) {
         return (
             <div className="card result-card">
-                <p className="error-text">❌ Erreur : {error}</p>
+                <p className="error-text">Erreur : {error}</p>
             </div>
         );
     }
@@ -36,7 +37,7 @@ export function DamageDisplay() {
     if (!champion || !result) {
         return (
             <div className="card result-card placeholder">
-                <p>👆 Sélectionne un champion pour commencer</p>
+                <p>Sélectionne un champion pour commencer</p>
             </div>
         );
     }
@@ -46,18 +47,18 @@ export function DamageDisplay() {
 
     return (
         <div className="card result-card">
-            <h2 className="section-title">📊 Résultats — {result.championName} niv.{result.level}</h2>
+            <h2 className="section-title">Résultats — {result.championName} niv.{result.level}</h2>
 
             {/* Stats summary */}
             <div className="stats-row">
-                <StatBadge label="AD Total" value={Math.round(totalAD)} color="#e8734a" />
-                <StatBadge label="AD Base" value={Math.round(baseAD)} color="#aaa" />
-                <StatBadge label="AD Bonus" value={Math.round(bonusAD)} color="#5cdb95" />
-                <StatBadge label="Crit Chance" value={`${Math.round(critChance * 100)}%`} color="#f7dc6f" />
+                <StatBadge label="AD Total" value={Math.round(totalAD)} color="#e08050" />
+                <StatBadge label="AD Base" value={Math.round(baseAD)} color="var(--text-secondary)" />
+                <StatBadge label="AD Bonus" value={Math.round(bonusAD)} color="var(--hp-green)" />
+                <StatBadge label="Crit" value={`${Math.round(critChance * 100)}%`} color="var(--accent)" />
                 <StatBadge
                     label="Mult. Crit"
                     value={`×${critMultiplier.toFixed(2)}`}
-                    color={hasIE ? '#f39c12' : '#aaa'}
+                    color={hasIE ? 'var(--accent)' : 'var(--text-secondary)'}
                     tooltip={hasIE ? 'Infinity Edge actif (+40%)' : 'Standard (175%)'}
                 />
             </div>
@@ -65,7 +66,7 @@ export function DamageDisplay() {
             {/* Auto-attack */}
             <div className="result-section">
                 <h3 className="result-subtitle" style={{ color: DAMAGE_COLOR.physical }}>
-                    ⚔️ Auto-attaque
+                    Auto-attaque
                 </h3>
                 <div className="damage-row-grid">
                     <DamageRow label="Normale" value={autoAttack.normal.finalDamage} type="physical" />
@@ -76,14 +77,14 @@ export function DamageDisplay() {
 
             {/* Abilities */}
             <div className="result-section">
-                <h3 className="result-subtitle">🧙 Sorts</h3>
+                <h3 className="result-subtitle">Sorts</h3>
                 {abilities.length > 0 ? (
                     abilities.map((ab) => (
                         <AbilityRow key={ab.abilityId} ability={ab} />
                     ))
                 ) : (
                     <p className="no-data-hint">
-                        ⚠️ Les ratios de ce champion ne sont pas encore enregistrés.
+                        Les ratios de ce champion ne sont pas encore enregistrés.
                         Seuls les dégâts d'auto-attaque sont calculés.
                     </p>
                 )}

@@ -7,6 +7,7 @@ import { DEFAULT_TARGET } from '../types/target';
 import { computeChampionStatsAtLevel, aggregateItemStats } from '../engine/statCalculator';
 import { calculateAutoAttack, getCritMultiplier } from '../engine/autoAttack';
 import { getChampionConfig, type SpellSlotConfig } from '../engine/champions';
+import { MAX_ITEM_SLOTS } from '../services/constants';
 
 interface CalculatorState {
     // Champion
@@ -94,7 +95,8 @@ export const useCalculatorStore = create<CalculatorState>((set, get) => ({
         get().computeDamage();
     },
     addItem: (item) => {
-        const uid = Math.random().toString(36).substr(2, 9);
+        if (get().selectedItems.length >= MAX_ITEM_SLOTS) return;
+        const uid = Math.random().toString(36).slice(2, 11);
         set((s) => ({ selectedItems: [...s.selectedItems, { uid, item }] }));
         get().computeDamage();
     },

@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,300..700&display=swap');
+
+:root {
+  color-scheme: dark;
+
+  /* ── Monochrome palette ────────────────────────────── */
+  --bg:            #0c0c0e;
+  --bg-raised:     #131316;
+  --surface:       #1a1a1f;
+  --surface-hover: #222228;
+  --border:        rgba(255, 255, 255, 0.06);
+  --border-hover:  rgba(255, 255, 255, 0.12);
+
+  /* ── Single accent ─────────────────────────────────── */
+  --accent:        #d4a853;
+  --accent-muted:  rgba(212, 168, 83, 0.12);
+  --accent-glow:   rgba(212, 168, 83, 0.25);
+
+  /* ── Text ──────────────────────────────────────────── */
+  --text:          #e8e8ec;
+  --text-secondary:#8b8b96;
+  --text-tertiary: #56565f;
+
+  /* ── Damage types ──────────────────────────────────── */
+  --physical:      #e08050;
+  --magic:         #6b9ef5;
+  --true-dmg:      #c9b97a;
+  --hp-green:      #5cdb95;
+  --danger:        #e05050;
+
+  /* ── Typography ────────────────────────────────────── */
+  --font: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+
+  /* ── Spacing ───────────────────────────────────────── */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+
+  /* ── Shape ─────────────────────────────────────────── */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* ── Motion ────────────────────────────────────────── */
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition: 180ms var(--ease);
+}
