@@ -39,25 +39,20 @@ function calculate(p: AbilityCalcParams): AbilityDamageResult[] {
     const wRaw = W_BASE[wR - 1] + 0.60 * p.bonusAD;
     const w    = calculateMagicDamage(wRaw, p.target, p.magicPenPercent, p.magicPenFlat);
 
-    // E — Rend detonation at 1 / 3 / 6 / 10 stacks (common thresholds)
-    function rendDmg(stacks: number): number {
+    // Helper for Rend damage
+    const rendDmg = (stacks: number): number => {
         if (stacks <= 0) return 0;
         return (E_FIRST_BASE[eR - 1] + 0.60 * p.bonusAD)
              + Math.max(0, stacks - 1) * (E_EXTRA_BASE[eR - 1] + 0.20 * p.bonusAD);
-    }
+    };
 
-    const e1  = calculatePhysicalDamage(rendDmg(1),  p.target, p.armorPenPercent, p.armorPenFlat);
-    const e3  = calculatePhysicalDamage(rendDmg(3),  p.target, p.armorPenPercent, p.armorPenFlat);
-    const e6  = calculatePhysicalDamage(rendDmg(6),  p.target, p.armorPenPercent, p.armorPenFlat);
-    const e10 = calculatePhysicalDamage(rendDmg(10), p.target, p.armorPenPercent, p.armorPenFlat);
+    const rendStacks = p.extras.rendStacks ?? 1;
+    const rend = calculatePhysicalDamage(rendDmg(rendStacks), p.target, p.armorPenPercent, p.armorPenFlat);
 
     return [
-        { abilityId: 'Q',     abilityName: 'Pierce (Q)',                           rank: qR, damageType: 'physical', rawDamage: q.rawDamage,    finalDamage: q.finalDamage },
-        { abilityId: 'W',     abilityName: 'Sentinel (W) — impact sentinelle',     rank: wR, damageType: 'magic',    rawDamage: w.rawDamage,    finalDamage: w.finalDamage },
-        { abilityId: 'E_1',   abilityName: 'Rend (E) — 1 lance',                  rank: eR, damageType: 'physical', rawDamage: e1.rawDamage,   finalDamage: e1.finalDamage },
-        { abilityId: 'E_3',   abilityName: 'Rend (E) — 3 lances',                 rank: eR, damageType: 'physical', rawDamage: e3.rawDamage,   finalDamage: e3.finalDamage },
-        { abilityId: 'E_6',   abilityName: 'Rend (E) — 6 lances',                 rank: eR, damageType: 'physical', rawDamage: e6.rawDamage,   finalDamage: e6.finalDamage },
-        { abilityId: 'E_10',  abilityName: 'Rend (E) — 10 lances',                rank: eR, damageType: 'physical', rawDamage: e10.rawDamage,  finalDamage: e10.finalDamage },
+        { abilityId: 'Q', abilityName: 'Pierce (Q)', rank: qR, damageType: 'physical', rawDamage: q.rawDamage, finalDamage: q.finalDamage },
+        { abilityId: 'W', abilityName: 'Sentinel (W) — impact sentinelle', rank: wR, damageType: 'magic', rawDamage: w.rawDamage, finalDamage: w.finalDamage },
+        { abilityId: 'E', abilityName: `Rend (E) — ${rendStacks} lance${rendStacks > 1 ? 's' : ''}`, rank: eR, damageType: 'physical', rawDamage: rend.rawDamage, finalDamage: rend.finalDamage },
     ];
 }
 
@@ -65,9 +60,10 @@ registerChampion('Kalista', {
     name: 'Kalista',
     calculateAbilities: calculate,
     spellSlots: [
-        { key: 'q', label: 'Q — Pierce',       maxRank: 5 },
-        { key: 'w', label: 'W — Sentinel',     maxRank: 5 },
-        { key: 'e', label: 'E — Rend',         maxRank: 5 },
+        { key: 'q', label: 'Q — Pierce', maxRank: 5 },
+        { key: 'w', label: 'W — Sentinel', maxRank: 5 },
+        { key: 'e', label: 'E — Rend (Rang)', maxRank: 5 },
+        { key: 'rendStacks', label: 'E — Lances Rend', maxRank: 1, extraParam: { label: 'Nombre de lances (E)', min: 1, max: 50, default: 1 } },
         { key: 'r', label: 'R — Fate\'s Call', maxRank: 3 },
     ],
 });

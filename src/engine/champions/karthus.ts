@@ -19,7 +19,7 @@ function calculate(p: AbilityCalcParams): AbilityDamageResult[] {
     const eR = Math.max(1, Math.min(5, p.ranks.e ?? 1));
     const rR = Math.max(1, Math.min(3, p.ranks.r ?? 1));
     
-    const isIsolated = p.extras.isolated ?? true; // Dégâts doublés si vrai
+    const isIsolated = p.extras.isolated !== 0; // Par défaut à 1 (vrai) si non défini ou activé
 
     // Q
     const qRawBase = Q_BASE[qR - 1] + (p.ap * Q_RATIO_AP);
@@ -46,6 +46,7 @@ registerChampion('Karthus', {
     calculateAbilities: calculate,
     spellSlots: [
         { key: 'q', label: 'Q — Lay Waste', maxRank: 5 },
+        { key: 'isolated', label: 'Q — Cible isolée', maxRank: 1, extraParam: { label: 'Cible isolée (0/1)', min: 0, max: 1, default: 1 } },
         { key: 'e', label: 'E — Defile', maxRank: 5 },
         { key: 'r', label: 'R — Requiem', maxRank: 3 },
     ],
