@@ -64,6 +64,26 @@ import './lissandra';
 import './lucian';
 import './lulu';
 import './masteryi';
+import './malphite';
+import './malzahar';
+import './maokai';
+import './missfortune';
+import './nocturne';
+import './nunu&willump';
+import './olaf';
+import './orianna';
+import './ornn';
+import './pantheon';
+import './poppy';
+import './pyke';
+import './qiyana';
+import './quinn';
+import './rakan';
+import './rammus';
+import './reksai';
+import './rell';
+import './renataglasc';
+import './renekton';
 
 // Re-export registry utilities
 export { getChampionConfig, hasChampionConfig, getRegisteredChampionIds } from './registry';

@@ -43,6 +43,10 @@ export interface AbilityCalcParams {
     magicPenFlat: number;
     critChance: number;
     critMultiplier: number;
+    armor: number;
+    bonusArmor: number;
+    mr: number;
+    bonusMR: number;
 }
 
 // ─── Registry ───────────────────────────────────────────────────────────────

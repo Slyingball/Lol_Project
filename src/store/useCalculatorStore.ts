@@ -145,6 +145,10 @@ export const useCalculatorStore = create<CalculatorState>((set, get) => ({
                 magicPenPercent: itemStats.magicPenPercent,
                 magicPenFlat: itemStats.magicPenFlat,
                 critChance, critMultiplier,
+                armor: stats.armor + itemStats.bonusArmor,
+                bonusArmor: itemStats.bonusArmor,
+                mr: stats.spellBlock + itemStats.bonusMR,
+                bonusMR: itemStats.bonusMR,
             })
             : []; // No abilities hardcoded for this champion
 
