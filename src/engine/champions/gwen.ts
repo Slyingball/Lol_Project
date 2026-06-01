@@ -52,9 +52,6 @@ function calculate(p: AbilityCalcParams): AbilityDamageResult[] {
     const qCenterRaw   = qOuterRaw * Q_CENTER_RATIO[qR - 1] + Q_CENTER_AP[qR - 1] * p.ap;
     const qCenter      = calculateTrueDamage(qCenterRaw);
 
-    // Q full combo (4 outer + 1 center true)
-    const qFullMagic   = calculateMagicDamage(qOuterRaw * 4, p.target, p.magicPenPercent, p.magicPenFlat);
-
     // E — empowered auto on-hit
     const eRaw = E_BASE[eR - 1] + 0.15 * p.ap;
     const e    = calculateMagicDamage(eRaw, p.target, p.magicPenPercent, p.magicPenFlat);

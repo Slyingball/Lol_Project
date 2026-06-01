@@ -4,7 +4,7 @@
  */
 import { registerChampion, type AbilityCalcParams } from './registry';
 import type { AbilityDamageResult } from '../../types/damage';
-import { calculatePhysicalDamage, calculateMagicDamage, calculateTrueDamage } from '../damageCalculator';
+import { calculatePhysicalDamage, calculateMagicDamage } from '../damageCalculator';
 
 // Passive — Relentless Assault: stacking attack speed on consecutive autos (no direct damage)
 
@@ -35,7 +35,6 @@ function calculate(p: AbilityCalcParams): AbilityDamageResult[] {
     // R active bonus AD
     const rBonusAD        = R_ACTIVE_AD[rR - 1];
     const effectiveBonusAD = p.bonusAD + rBonusAD;
-    const effectiveTotalAD = p.totalAD + rBonusAD;
 
     // Q — base & with R active
     const qRaw     = Q_BASE[qR - 1] + 1.00 * p.bonusAD + 0.60 * p.ap;

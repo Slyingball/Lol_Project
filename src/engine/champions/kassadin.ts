@@ -31,7 +31,7 @@ function calculate(p: AbilityCalcParams): AbilityDamageResult[] {
     const rR = Math.max(1, Math.min(3, p.ranks.r ?? 1));
     
     const rStacks = Math.max(0, Math.min(4, p.extras.rStacks ?? 0)); // Max 4 stacks
-    const maxMana = p.maxMana ?? 0;
+    const maxMana = p.extras.maxMana ?? 1500;
 
     // Q, W, E
     const qRaw = Q_BASE[qR - 1] + (p.ap * Q_RATIO_AP);
@@ -64,6 +64,8 @@ registerChampion('Kassadin', {
         { key: 'q', label: 'Q — Null Sphere', maxRank: 5 },
         { key: 'w', label: 'W — Nether Blade', maxRank: 5 },
         { key: 'e', label: 'E — Force Pulse', maxRank: 5 },
-        { key: 'r', label: 'R — Riftwalk', maxRank: 3 },
+        { key: 'r', label: 'R — Riftwalk (Rang)', maxRank: 3 },
+        { key: 'rStacks', label: 'R — Stacks Fissure', maxRank: 1, extraParam: { label: 'Stacks R', min: 0, max: 4, default: 0 } },
+        { key: 'maxMana', label: 'Stat — Mana Maximum', maxRank: 1, extraParam: { label: 'Mana Max', min: 400, max: 4000, default: 1500 } },
     ],
 });

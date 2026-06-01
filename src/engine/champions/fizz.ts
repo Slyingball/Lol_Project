@@ -4,7 +4,7 @@
  */
 import { registerChampion, type AbilityCalcParams } from './registry';
 import type { AbilityDamageResult } from '../../types/damage';
-import { calculateMagicDamage, calculatePhysicalDamage, calculateTrueDamage } from '../damageCalculator';
+import { calculateMagicDamage } from '../damageCalculator';
 
 // Passive — Nimble Fighter: no unit collision + reduces auto-attack damage taken (no damage dealt)
 

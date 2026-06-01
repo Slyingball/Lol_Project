@@ -44,6 +44,26 @@ import './evelynn';
 import './ezreal';
 import './fiddlesticks';
 import './fiora';
+import './kaisa';
+import './kalista';
+import './karma';
+import './karthus';
+import './kassadin';
+import './katarina';
+import './kayle';
+import './kayn';
+import './kennen';
+import './khazix';
+import './kindred';
+import './kled';
+import './kogmaw';
+import './leblanc';
+import './leona';
+import './lillia';
+import './lissandra';
+import './lucian';
+import './lulu';
+import './masteryi';
 
 // Re-export registry utilities
 export { getChampionConfig, hasChampionConfig, getRegisteredChampionIds } from './registry';

@@ -12,7 +12,7 @@ import { calculatePhysicalDamage } from '../damageCalculator';
 //   Jhin converts excess attack speed into bonus AD
 //   AD formula: base AD × (0.4 + 0.4 × (crit chance) + 0.25 × (bonus AS ratio))
 //   Simplified: model crit damage multiplier at 0% and 100% crit
-function passive4thShotMissingHPRaw(missingHPPercent: number, targetMissingHP: number, rank: number): number {
+function passive4thShotMissingHPRaw(targetMissingHP: number, rank: number): number {
     const ratio = [0.15, 0.20, 0.25][rank - 1];
     return ratio * targetMissingHP;
 }
@@ -43,7 +43,7 @@ function calculate(p: AbilityCalcParams): AbilityDamageResult[] {
     const missingHP = p.target.maxHP - p.target.currentHP;
 
     // Passive — 4th shot missing HP bonus (rR used for the scaling tier)
-    const pass4thHP  = passive4thShotMissingHPRaw(0, missingHP, rR);
+    const pass4thHP  = passive4thShotMissingHPRaw(missingHP, rR);
     const pass4thAuto = calculatePhysicalDamage(p.totalAD + pass4thHP, p.target, p.armorPenPercent, p.armorPenFlat);
 
     // Passive — 4th shot crit (×1.5 + 15%)

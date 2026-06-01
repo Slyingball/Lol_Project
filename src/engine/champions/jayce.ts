@@ -74,9 +74,7 @@ function calculate(p: AbilityCalcParams): AbilityDamageResult[] {
     const eh      = calculateMagicDamage(ehRaw, p.target, p.magicPenPercent, p.magicPenFlat);
 
     // ── Canon combo: E+Q accelerated (signature burst)
-    const comboRaw = qcAcc + ecRaw;
     const comboQ   = calculatePhysicalDamage(qcAcc,  p.target, p.armorPenPercent, p.armorPenFlat);
-    const comboE   = calculateMagicDamage(ecRaw,     p.target, p.magicPenPercent, p.magicPenFlat);
 
     return [
         // Cannon

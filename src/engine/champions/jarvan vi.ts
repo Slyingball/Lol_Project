@@ -45,8 +45,6 @@ function calculate(p: AbilityCalcParams): AbilityDamageResult[] {
     // E passive bonus AD (informational — shown as 0 damage entry)
     const eBonusAD = [20, 25, 30, 35, 40][eR - 1];
 
-    // Q + E combo (knockup — flag must be placed first)
-    const qeComboRaw = qRaw + eRaw;
     // Treated as mixed — show separately; combo label sums both hits conceptually
     const qeQ = calculatePhysicalDamage(qRaw, p.target, p.armorPenPercent, p.armorPenFlat);
     const qeE = calculateMagicDamage(eRaw, p.target, p.magicPenPercent, p.magicPenFlat);
